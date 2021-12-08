@@ -1,0 +1,24 @@
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Listener
+metadata:
+  name: ambassador-http-listener
+  namespace: gitops-demo
+spec:
+  port: 8080
+  protocol: HTTP
+  securityModel: INSECURE
+  hostBinding:
+    namespace:
+      from: ALL
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Host
+metadata:
+  name: wildcard-host
+  namespace: gitops-demo
+spec:
+  hostname: "*"
+  requestPolicy:
+    insecure:
+      action: Route
